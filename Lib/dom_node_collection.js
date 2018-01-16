@@ -105,7 +105,6 @@ class DOMNodeCollection {
 
   remove() {
     this.nodes.forEach( (node) => {
-      //
 
       let domNode = new DOMNodeCollection([node]);
       let parent = domNode.parent();
