@@ -106,20 +106,32 @@ class DOMNodeCollection {
   remove() {
     this.nodes.forEach( (node) => {
       //
-      // let domNode = new DOMNodeCollection([node]);
-      // let parent = domNode.parent();
-      //
-      // parent.empty();
-      //
 
-      node.parentNode.removeChild(node);
+      let domNode = new DOMNodeCollection([node]);
+      let parent = domNode.parent();
+
+      parent.empty();
+
+      // node.parentNode.removeChild(node);
     });
+
+    return this;
+
   }
 
   on(event, cb){
     this.nodes.forEach( (node) => {
-      node.addEventListener(event, cb);
+      node.cb = cb;
+      node.addEventListener(event, node.cb);
     });
+    return this;
+  }
+
+  off(event){
+    this.nodes.forEach( (node) => {
+      node.removeEventListener(event, node.cb);
+    });
+    return this;
   }
 
 
