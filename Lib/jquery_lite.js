@@ -111,14 +111,13 @@ $l.ajax = (options) => {
 
   request.onload = (e) => {
     if (request.status === 200) {
-      options.success(request.response);
+      options.success(JSON.parse(request.response));
     } else {
-      options.error(request.response);
+      options.error(JSON.parse(request.response));
     }
   };
 
   request.send(JSON.stringify(options.data));
-  options.data = request.response;
   return request;
 };
 
