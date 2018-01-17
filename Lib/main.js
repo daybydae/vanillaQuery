@@ -19,40 +19,36 @@ window.$l = function(selector){
   }
 };
 
-// $l.extend = (base, ...otherObjs) => {
-//   otherObjs.forEach( obj => {
-//     for (const prop in obj) {
-//       base[prop] = obj[prop];
-//     }
-//   });
-//   return base;
-// };
-
 $l.extend = (...otherObjs) => {
   return Object.assign(...otherObjs);
 };
 
 $l.ajax = (options) => {
-  const xhr = new XMLHttpRequest();
+  const request = new XMLHttpRequest();
 
-  defaults = {
+  const defaults = {
     method: 'GET',
-    contentType: 'HTML',
+    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
     url: '',
     success: () => {},
     error: () => {},
     data: {}
   };
 
-  const result = $l.extend(defaults, options);
-  xhr.open(result.method, result.url);
-  xhr.onload = () => {
-    console.log(xhr.status);
-    console.log(xhr.responseType);
-    console.log(xhr.response);
+  options = $l.extend(defaults, options);
+  options.method = options.method.toUpperCase();
+
+  request.open(options.method, options.url);
+
+  request.onload = (e) => {
+    if (request.status === 200) {
+      options.success(request.response);
+    } else {
+      options.error(request.response);
+    }
   };
 
-  const optionalData = result.data;
-  xhr.send(optionalData);
-  return xhr;
+  request.send(JSON.stringify(options.data));
+  options.data = request.response;
+  return request;
 };
