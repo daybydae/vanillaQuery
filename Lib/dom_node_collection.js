@@ -29,7 +29,6 @@ class DOMNodeCollection {
       if (words.includes(string)) {
         let index = words.indexOf(string);
         words.splice(index,1);
-        // el.className = "";
         node.className = words.join(' ');
       }
     });
@@ -64,7 +63,6 @@ class DOMNodeCollection {
         this.nodes[i].innerHTML += arg;
       }
     } else {
-      //DOMNodeCollection
       for (let i = 0; i < this.nodes.length; i++) {
         for (let j = 0; j < arg.nodes.length; j++) {
           this.nodes[i].innerHTML += arg.nodes[j].outerHTML;
@@ -111,7 +109,6 @@ class DOMNodeCollection {
 
       parent.empty();
 
-      // node.parentNode.removeChild(node);
     });
 
     return this;
@@ -133,9 +130,6 @@ class DOMNodeCollection {
     return this;
   }
 
-
-
 }
-
 
 module.exports = DOMNodeCollection;
