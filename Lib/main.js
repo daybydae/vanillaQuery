@@ -1,7 +1,7 @@
 const DomNodeCollection = require('./dom_node_collection');
 
 
-window.$l = function(selector){
+window.vQ = function(selector){
   const queue = [];
   if (selector instanceof HTMLElement) {
     return new DomNodeCollection([selector]);
@@ -19,11 +19,11 @@ window.$l = function(selector){
   }
 };
 
-$l.extend = (...otherObjs) => {
+vQ.extend = (...otherObjs) => {
   return Object.assign(...otherObjs);
 };
 
-$l.ajax = (options) => {
+vQ.ajax = (options) => {
   const request = new XMLHttpRequest();
 
   const defaults = {
@@ -35,7 +35,7 @@ $l.ajax = (options) => {
     data: {}
   };
 
-  options = $l.extend(defaults, options);
+  options = vQ.extend(defaults, options);
   options.method = options.method.toUpperCase();
 
   request.open(options.method, options.url);
